@@ -1,5 +1,5 @@
 # Vid Orca
-Running LLaMA Chat on Google Cloud Run.
+Deploy LLaMA Chat on Google Cloud Run.
 
 ## What you will need
 * [***Python 3.11***](https://www.python.org/downloads/)
