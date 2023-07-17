@@ -75,14 +75,14 @@ Running LLaMA Chat on Google Cloud Run.
 
 * To test the deployment on a Google Cloud Run service which **does not** require authentication, run:
     ```cmd
-    curl -X POST "%URL%/api/ask" ^
+    curl -X POST "%URL%/api/chat" ^
     -H  "accept: application/json" ^
     -H  "Content-Type: application/json" ^
     -d "{\"messages\":[{\"role\":\"system\",\"content\":\"You are a helpful assistant AI.\"},{\"role\":\"user\",\"content\":\"Who made Linux?\"}]}"
     ```
 * To test the deployment on a Google Cloud Run service which **does** require authentication, run:
     ```cmd
-    curl -X POST "%URL%/api/ask" ^
+    curl -X POST "%URL%/api/chat" ^
     -H  "accept: application/json" ^
     -H  "Content-Type: application/json" ^
     -H "Authorization: Bearer [YOUR CREDENTIALS]" ^
