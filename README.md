@@ -2,7 +2,6 @@
 Deploy LLaMA Chat on Google Cloud Run.
 
 ## What you will need
-* [***Python 3.11***](https://www.python.org/downloads/)
 * [***Docker Desktop***](https://www.docker.com/)
 * [***Google Cloud CLI***](https://cloud.google.com/sdk/docs/install)
 
