@@ -1,7 +1,7 @@
-from pydantic import BaseModel, create_model
-
 from typing import _TypedDictMeta as TypedDictMeta
 from typing import Type
+
+from pydantic import BaseModel, create_model
 
 def model_from_typed_dict(typed_dict: TypedDictMeta) -> Type[BaseModel]:
     annotations = {}

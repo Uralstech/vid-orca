@@ -3,3 +3,7 @@ fastapi
 uvicorn
 sse-starlette
 pydantic
+
+# Comment the below lines if you do not want end-user authentication for the Google Cloud Run service.
+firebase-admin
+requests

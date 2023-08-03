@@ -1,1 +1,5 @@
 NOCOMMIT/
+models/model.bin
+models/llama-2-7b.ggmlv3.q4_K_M.bin
+models/LLaMA2_default_quant_0.bin
+env/
