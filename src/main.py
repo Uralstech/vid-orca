@@ -15,7 +15,7 @@ from middleware import UMiddleware
 USE_FIREBASE_ADMIN_AUTH: bool = True # Change this to `False` if you are not using Firebase Admin for authentication
 MODEL_PATH: str = "../models/llama-2-7b.ggmlv3.q4_K_S.bin" # If needed, change this to the path to your LLaMA model binary.
 
-APP_VERSION: str = "1.2.0"
+APP_VERSION: str = "1.2.1"
 APP_NAME: str = "Vid Orca"
 
 # APP INITIALIZATION
@@ -26,7 +26,7 @@ if USE_FIREBASE_ADMIN_AUTH:
     firebase_app = initialize_firebase_app()
 
 app: FastAPI = FastAPI(title=APP_NAME, version=APP_VERSION)
-llama: Llama = Llama(model_path=MODEL_PATH, n_ctx=4096, n_batch=512, n_threads=int(cpu_count() / 2) or 1)
+llama: Llama = Llama(model_path=MODEL_PATH, n_ctx=4096, n_batch=1024, n_threads=cpu_count())
 app.add_middleware(UMiddleware, use_firebase_admin_auth=USE_FIREBASE_ADMIN_AUTH, firebase_app=firebase_app)
 
 response_model: Type[BaseModel] = model_from_typed_dict(ChatCompletion)
