@@ -1,7 +1,7 @@
 # Vid Orca
 
 Deploy LLaMA-2 Chat on Google Cloud Run.
-Update v1.2.0: This *should* now have authentication working, documentation is TODO. I am now using LLaMA-2, not Orca.
+Update v1.2.1: The authentication has been tested, documentation is done.
 
 ## What you will need
 
