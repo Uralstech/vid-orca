@@ -12,7 +12,7 @@ from middleware import UMiddleware
 
 # CONSTANTS
 
-# Set USE_FIREBASE_ADMIN_AUTH to `False` if you are not using Firebase Admin SDK for authentication.
+# Set USE_FIREBASE_ADMIN_AUTH to `False` if you do not want Firebase Admin SDK authentication.
 USE_FIREBASE_ADMIN_AUTH: bool = True
 # Set MODEL_PATH to the path to your model file.
 MODEL_PATH: str = "../models/llama-2-13b-chat.gguf.q3_K_S.bin"
@@ -30,7 +30,7 @@ if USE_FIREBASE_ADMIN_AUTH:
 app: FastAPI = FastAPI(title=APP_NAME, version=APP_VERSION)
 app.add_middleware(UMiddleware, use_firebase_admin_auth=USE_FIREBASE_ADMIN_AUTH, firebase_app=firebase_app)
 
-# Remove n_gpu_layers=43 if you are using Cloud Run or not using a GPU.
+# Remove n_gpu_layers=43 if you are using Cloud Run.
 llama: Llama = Llama(model_path=MODEL_PATH, n_ctx=4096, n_batch=4096, n_gpu_layers=43, n_threads=cpu_count())
 response_model: Type[BaseModel] = model_from_typed_dict(ChatCompletion)
 
