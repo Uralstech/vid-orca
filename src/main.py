@@ -16,7 +16,7 @@ USE_FIREBASE_ADMIN_AUTH: bool = True # Change this to `False` if you are not usi
 MODEL_PATH: str = "../models/llama-2-13b-chat.gguf.q3_K_S.bin" # If needed, change this to the path to your LLaMA model binary.
 
 APP_VERSION: str = "1.2.10"
-APP_NAME: str = "hAI! LLaMA2-13b"
+APP_NAME: str = "Vid Orca LLaMA-2 13b"
 
 # APP INITIALIZATION
 

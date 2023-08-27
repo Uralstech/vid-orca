@@ -1,34 +1,4 @@
----
-# This is still TODO.
----
-
-# Deploying LLaMA models to GCP
-
-## What you will need
-
-* [***Docker Desktop***](https://www.docker.com/)
-* [***Google Cloud CLI***](https://cloud.google.com/sdk/docs/install)
-
-## Choose your path
-I have documented two ways of deploying LLaMA models to Google Cloud. Choose what is best for you!
-
-### Using Google Cloud Run
-
-* **Pros**
-	* **Easy to setup.**
-	* **Very cheap.** Google only charges you while a request is being processed (depending on your setup).
-* **Cons**
-	* **Very slow.** Cloud Run does not allow you to use GPUs.
-		* My 13b model took nearly **two minutes** to process a single request.
-
-### Using Google Compute Engine VMs
-
-* **Pros**
-	* **GCE allows you to use GPUs.** This makes your models ***way*** faster.
-		* My 13b model only took **ten seconds** to process a request.
-* **Cons**
-	* **Harder to set up.**
-	* **More expensive than Cloud Run and charges you for the whole time the VM is running.** In my configuration, it costs **$0.34 per *hour*** or **$228.93 per *month***.
+# Deploying LLaMA models to Google Cloud Run
 
 ## Setup
 
