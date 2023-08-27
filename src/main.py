@@ -12,7 +12,7 @@ from middleware import UMiddleware
 
 # CONSTANTS
 
-# Set USE_FIREBASE_ADMIN_AUTH to `False` if you are not using Firebase Admin for authentication.
+# Set USE_FIREBASE_ADMIN_AUTH to `False` if you are not using Firebase Admin SDK for authentication.
 USE_FIREBASE_ADMIN_AUTH: bool = True
 # Set MODEL_PATH to the path to your model file.
 MODEL_PATH: str = "../models/llama-2-13b-chat.gguf.q3_K_S.bin"
