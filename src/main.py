@@ -13,10 +13,10 @@ from middleware import UMiddleware
 # CONSTANTS
 
 USE_FIREBASE_ADMIN_AUTH: bool = True # Change this to `False` if you are not using Firebase Admin for authentication
-MODEL_PATH: str = "../models/llama-2-7b.ggmlv3.q4_K_S.bin" # If needed, change this to the path to your LLaMA model binary.
+MODEL_PATH: str = "../models/llama-2-13b-chat.gguf.q3_K_S.bin" # If needed, change this to the path to your LLaMA model binary.
 
-APP_VERSION: str = "1.2.1"
-APP_NAME: str = "Vid Orca"
+APP_VERSION: str = "1.2.10"
+APP_NAME: str = "hAI! LLaMA2-13b"
 
 # APP INITIALIZATION
 
@@ -26,7 +26,7 @@ if USE_FIREBASE_ADMIN_AUTH:
     firebase_app = initialize_firebase_app()
 
 app: FastAPI = FastAPI(title=APP_NAME, version=APP_VERSION)
-llama: Llama = Llama(model_path=MODEL_PATH, n_ctx=4096, n_batch=1024, n_threads=cpu_count())
+llama: Llama = Llama(model_path=MODEL_PATH, n_ctx=4096, n_batch=4096, n_gpu_layers=43, n_threads=cpu_count())
 app.add_middleware(UMiddleware, use_firebase_admin_auth=USE_FIREBASE_ADMIN_AUTH, firebase_app=firebase_app)
 
 response_model: Type[BaseModel] = model_from_typed_dict(ChatCompletion)
@@ -37,7 +37,7 @@ response_model: Type[BaseModel] = model_from_typed_dict(ChatCompletion)
 async def chat(request: ChatCompletionsRequest) -> Union[ChatCompletion, EventSourceResponse]:
     print("Chat-completion request received!")
 
-    completion_or_chunks: Union[ChatCompletion, Iterator[ChatCompletionChunk]] = llama.create_chat_completion(**request.dict(), max_tokens=4096)
+    completion_or_chunks: Union[ChatCompletion, Iterator[ChatCompletionChunk]] = llama.create_chat_completion(**request.model_dump(), max_tokens=4096)
     completion: ChatCompletion = completion_or_chunks
 
     print("Sending completion!")

@@ -25,15 +25,14 @@ class UMiddleware(BaseHTTPMiddleware):
 
     def create_error_response(self, class_: DispatchErrorClass, message: str) -> JSONResponse:
         code: int
-        match class_:
-            case UMiddleware.DispatchErrorClass.NO_HEADER:
-                code = 401
-            case UMiddleware.DispatchErrorClass.INVALID_HEADER:
-                code = 401
-            case UMiddleware.DispatchErrorClass.AUTH:
-                code = 403
-            case _:
-                code = 418
+        if class_ == UMiddleware.DispatchErrorClass.NO_HEADER:
+            code = 401
+        elif class_ == UMiddleware.DispatchErrorClass.INVALID_HEADER:
+            code = 401
+        elif class_ == UMiddleware.DispatchErrorClass.AUTH:
+            code = 403
+        else:
+            code = 418
 
         return JSONResponse({"error":{"code":code, "class":class_.name, "message":message}}, code, media_type="application/json")
 

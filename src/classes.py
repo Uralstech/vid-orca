@@ -1,4 +1,4 @@
-from typing import Union, Literal
+from typing import Union, Literal, List
 from pydantic import BaseModel
 
 class Message(BaseModel):
@@ -6,5 +6,5 @@ class Message(BaseModel):
     content: str
 
 class ChatCompletionsRequest(BaseModel):
-    messages: list[Message]
+    messages: List[Message]
     temperature: float = 0.8
