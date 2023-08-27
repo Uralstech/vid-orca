@@ -12,11 +12,13 @@ from middleware import UMiddleware
 
 # CONSTANTS
 
-USE_FIREBASE_ADMIN_AUTH: bool = True # Change this to `False` if you are not using Firebase Admin for authentication
-MODEL_PATH: str = "../models/llama-2-13b-chat.gguf.q3_K_S.bin" # If needed, change this to the path to your LLaMA model binary.
+# Set USE_FIREBASE_ADMIN_AUTH to `False` if you are not using Firebase Admin for authentication.
+USE_FIREBASE_ADMIN_AUTH: bool = True
+# Set MODEL_PATH to the path to your model file.
+MODEL_PATH: str = "../models/llama-2-13b-chat.gguf.q3_K_S.bin"
 
 APP_VERSION: str = "1.2.10"
-APP_NAME: str = "Vid Orca LLaMA-2 13b"
+APP_NAME: str = "Vid Orca LLaMA-2 13b" # You can change the name to suite your needs and/or model name.
 
 # APP INITIALIZATION
 
@@ -26,9 +28,10 @@ if USE_FIREBASE_ADMIN_AUTH:
     firebase_app = initialize_firebase_app()
 
 app: FastAPI = FastAPI(title=APP_NAME, version=APP_VERSION)
-llama: Llama = Llama(model_path=MODEL_PATH, n_ctx=4096, n_batch=4096, n_gpu_layers=43, n_threads=cpu_count())
 app.add_middleware(UMiddleware, use_firebase_admin_auth=USE_FIREBASE_ADMIN_AUTH, firebase_app=firebase_app)
 
+# Remove n_gpu_layers=43 if you are using Cloud Run or not using a GPU.
+llama: Llama = Llama(model_path=MODEL_PATH, n_ctx=4096, n_batch=4096, n_gpu_layers=43, n_threads=cpu_count())
 response_model: Type[BaseModel] = model_from_typed_dict(ChatCompletion)
 
 # APP FUNCTIONS
