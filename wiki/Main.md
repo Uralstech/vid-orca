@@ -3,17 +3,6 @@
 ## NOTE
 This is still incomplete! I am working on finishing the wiki.
 
-## Changelog
-* v1.2.10 **[Breaking changes]**
-	* Updated to LLaMA CPP Python v0.1.81.
-		- **GGML models *will not* work, as LLaMA CPP has dropped GGML support.**
-		- I am working on a tutorial on how to convert your GGML models to GGUF models.
-		- Currently, I am using a converted GGUF model of the original 13b model I was previously using. You can find it here: <https://huggingface.co/uralstech/LLaMA-2-13b-Chat-GGUF>
-	* Firebase Admin SDK authentication will now work on Google Compute Engine Virtual Machines.
-	* All scripts should now work with earlier versions of Python.
-		- Tested on Python 3.8.10.
-	
-
 ## Deploying LLaMA models to Google Cloud
 
 ### What you will need
@@ -67,3 +56,13 @@ I have documented two ways of deploying LLaMA models to Google Cloud. Choose wha
 * **Cons**
 	* **Harder to set up.**
 	* **More expensive than Cloud Run and charges you for the whole time the VM is running.** In my configuration, it costs **$0.34 per *hour*** or **$228.93 per *month***.
+
+## Changelog
+* v1.2.10 **[Breaking changes]**
+	* Updated to LLaMA CPP Python v0.1.81.
+		- **GGML models *will not* work, as LLaMA CPP has dropped GGML support.**
+		- I am working on a tutorial on how to convert your GGML models to GGUF models.
+		- Currently, I am using a converted GGUF model of the original 13b model I was previously using. You can find it here: <https://huggingface.co/uralstech/LLaMA-2-13b-Chat-GGUF>
+	* Firebase Admin SDK authentication will now work on Google Compute Engine Virtual Machines.
+	* All scripts should now work with earlier versions of Python.
+		- Tested on Python 3.8.10.
