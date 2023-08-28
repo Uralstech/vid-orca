@@ -4,9 +4,6 @@
 
 ### Basics
 
-* Fork/Download this repo and create a new folder called **models**.
-* Download any **LLaMA or LLaMA 2 derived GGML model which supports LLaMA CPP**. I used **orca-mini-7b.ggmlv3.q4_0.bin** from https://gpt4all.io/index.html originally, hence the project name. I am now using **llama-2-7b.ggmlv3.q4_K_S.bin** and **llama-2-13b-chat.ggmlv3.q3_K_S.bin** from https://huggingface.co/TheBloke/. For me, 13b yields the best results, as when using Google Cloud Run it's not possible to use any models requiring a GPU or more than 34 GBs of RAM, like LLaMA2 70b.
-* Move the downloaded `.bin` file to the **models** folder.
 * In **src/main.py**, line **16**, update `MODEL_PATH` with your model's filename.
 
 ### Google Cloud project
