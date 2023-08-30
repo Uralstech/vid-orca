@@ -8,25 +8,10 @@
 
 ### Google Cloud project
 
-* For new Google Cloud projects:
-    * Go to [***Google Cloud Console***](https://console.cloud.google.com/) and create a new project.
-    * Link a billing account to the project.
 * Enable the needed services:
     ```bash
-    gcloud services enable artifactregistry.googleapis.com run.googleapis.com
+    gcloud services enable run.googleapis.com
     ```
-
-### Google Cloud Artifact Registry
-
-* Go to the [***Google Cloud Artifact Registry***](https://console.cloud.google.com/artifacts) for your project and create a new repository.
-* Name your repository.
-* Make sure the format is `Docker`.
-* Choose a region or multi-region area.
-* Create your repository.
-
-### Google Cloud Artifact Registry authentication
-
-* Set up authentication for Docker as described in the [***Google Cloud Artifact Registry documentation***](https://cloud.google.com/artifact-registry/docs/docker/authentication).
 
 ## Authentication for the Google Cloud Run service
 

@@ -49,6 +49,24 @@ If you **do not** want authentication or are using a different method of authent
 * In `main.py`, set the `USE_FIREBASE_ADMIN_AUTH` variable (line **16**) to `False`.
 * In `Dockerfile` remove line **37**
 
+### Google Cloud project setup
+* For new Google Cloud projects:
+    * Go to [***Google Cloud Console***](https://console.cloud.google.com/) and create a new project.
+    * Link a billing account to the project.
+* Enable the Artifact Registry API:
+    ```bash
+    gcloud services enable artifactregistry.googleapis.com
+    ```
+
+### Google Cloud Artifact Registry setup
+
+* Go to the [***Google Cloud Artifact Registry***](https://console.cloud.google.com/artifacts) for your project and create a new repository.
+* Name your repository.
+* Set the format to `Docker`.
+* Choose a region or multi-region area.
+* Create your repository.
+* Set up authentication for Docker using one of the ways defined in the [***Google Cloud Artifact Registry documentation***](https://cloud.google.com/artifact-registry/docs/docker/authentication).
+
 ### Choose your path
 I have documented two ways of deploying LLaMA models to Google Cloud. Choose what is best for you!
 
@@ -61,7 +79,7 @@ I have documented two ways of deploying LLaMA models to Google Cloud. Choose wha
 	* **Very slow.** Cloud Run does not allow you to use GPUs.
 		* My 13b model took nearly **two minutes** to process a single request.
 
-If you want to deploy your model to Google Cloud Run, check out <>https://github.com/uralstech/vid-orca/wiki/Google-Cloud-Run.
+If you want to deploy your model to Google Cloud Run, check out <https://github.com/uralstech/vid-orca/wiki/Google-Cloud-Run>.
 
 #### Using Google Compute Engine VMs
 
