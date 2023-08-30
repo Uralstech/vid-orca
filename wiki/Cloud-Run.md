@@ -37,7 +37,7 @@ If you want to test/run the image locally and have Admin SDK authentication enab
     	```
     * Bash
 		```bash
-		export VERSION="1.2.7"
+		export VERSION="1.2.10"
 		export REGION="Google Cloud Platform region"
 		export PROJECT="Google Cloud project ID"
 		export REPOSITORY="Google Cloud Artifact Registry repository name"

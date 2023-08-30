@@ -85,7 +85,7 @@ I have documented two ways of deploying LLaMA models to Google Cloud. Choose wha
 	* **Very slow.** Cloud Run does not allow you to use GPUs.
 		* My 13b model took nearly **two minutes** to process a single request.
 
-If you want to deploy your model to Google Cloud Run, check out <https://github.com/uralstech/vid-orca/wiki/Google-Cloud-Run>.
+If you want to deploy your model to Google Cloud Run, check out <https://github.com/Uralstech/vid-orca/wiki/LLaMA-On-Google-Cloud-Run>.
 
 #### Using Google Compute Engine VMs
 
@@ -96,7 +96,7 @@ If you want to deploy your model to Google Cloud Run, check out <https://github.
 	* **Harder to set up.**
 	* **More expensive than Cloud Run and charges you for the whole time the VM is running.** In my configuration, it costs **$0.34 per *hour*** or **$228.93 per *month***.
 
-If you want to deploy your model to Google Compute Engine, check out <https://github.com/uralstech/vid-orca/wiki/Google-Compute-Engine>.
+If you want to deploy your model to Google Compute Engine, check out <https://github.com/Uralstech/vid-orca/wiki/LLaMA-On-Google-Compute-Engine>.
 
 ## Changelog
 * v1.2.10 **[Breaking changes]**
