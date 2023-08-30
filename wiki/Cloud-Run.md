@@ -2,7 +2,7 @@
 
 ## Setup
 
-### Basics
+### Updating the scripts.
 
 * In **src/main.py**, line **16**, update `MODEL_PATH` with your model's filename.
 

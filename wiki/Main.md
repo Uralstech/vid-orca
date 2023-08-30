@@ -13,28 +13,41 @@ This is still incomplete! I am working on finishing the wiki.
 ### Basic setup
 * Fork/Download this repo and create a new folder called **models**.
 * Download any **LLaMA or LLaMA 2 derived GGUF model**.
-
-> With LLaMA CPP dropping support for GGML models, you will have to convert your GGML models to GGUF using the scripts given in the LLaMA CPP repo.<br/>
-> I am working on a tutorial on how to do so. But here are the basic steps on how to do it:
->  * Clone the [***LLaMA CPP repo***](https://github.com/ggerganov/llama.cpp).
->  * Follow the installation steps given [***here***](https://github.com/ggerganov/llama.cpp#build). 
->  * Run `pip install -r requirements.txt`.
->  * For LLaMA 2 models, run:<br/>
->	  `python convert-llama-ggmlv3-to-gguf.py --input PATH_TO_THE_INPUT_GGML_FILE --output PATH_TO_THE_OUTPUT_GGUF_FILE --name "NAME OF YOUR MODEL" --eps 1e-5 --context-length 4096`
->  * For LLaMA 1 models, run:<br/>
->	  `python convert-llama-ggmlv3-to-gguf.py --input PATH_TO_THE_INPUT_GGML_FILE --output PATH_TO_THE_OUTPUT_GGUF_FILE --name "NAME OF YOUR MODEL" --eps 1e-6 --context-length 2048`
->  > For my LLaMA 2 13b model, on Linux, the command is:<br/>
->  >  `python3 convert-llama-ggmlv3-to-gguf.py --input ../vid-orca/NOCOMMIT/Models/llama-2-13b-chat.ggmlv3.q3_K_S.bin --output ../vid-orca/models/llama-2-13b-chat.gguf.q3_K_S.bin --name "LLaMA-2 13b GGUF q3_K_S" --eps 1e-5 --context-length 4096`
->
-> You've now converted your GGML model to a GGUF model! Just a few things to note about the commands above:
->  * You may need to replace `pip` and/or `python` with `pip3` and/or `python3`, depending on your Python configuration.
->  * If your LLaMA 1 models have a context length of more than 2048 or your LLaMA 2 models have it more than 4096, you will have to increase the `--context-length` argument of the conversion command. 
-> <br/><br/>
->
-> I am using **llama-2-13b-chat.ggmlv3.q3_K_S.bin** from https://huggingface.co/TheBloke/ converted to GGUF (it is available here: <https://huggingface.co/uralstech/LLaMA-2-13b-Chat-GGUF>).
-> I am using the 13b model as it has good performance at much lower hardware requirements than the 70b model.
+	
+	> With LLaMA CPP dropping support for GGML models, you will have to convert your GGML models to GGUF using the scripts given in the LLaMA CPP repo.<br/>
+	> I am working on a tutorial on how to do so. But here are the basic steps on how to do it:
+	>  * Clone the [***LLaMA CPP repo***](https://github.com/ggerganov/llama.cpp).
+	>  * Follow the installation steps given [***here***](https://github.com/ggerganov/llama.cpp#build). 
+	>  * Run `pip install -r requirements.txt`.
+	>  * For LLaMA 2 models, run:<br/>
+	>	  `python convert-llama-ggmlv3-to-gguf.py --input PATH_TO_THE_INPUT_GGML_FILE --output PATH_TO_THE_OUTPUT_GGUF_FILE --name "NAME OF YOUR MODEL" --eps 1e-5 --context-length 4096`
+	>  * For LLaMA 1 models, run:<br/>
+	>	  `python convert-llama-ggmlv3-to-gguf.py --input PATH_TO_THE_INPUT_GGML_FILE --output PATH_TO_THE_OUTPUT_GGUF_FILE --name "NAME OF YOUR MODEL" --eps 1e-6 --context-length 2048`
+	>  > For my LLaMA 2 13b model, on Linux, the command is:<br/>
+	>  >  `python3 convert-llama-ggmlv3-to-gguf.py --input ../vid-orca/NOCOMMIT/Models/llama-2-13b-chat.ggmlv3.q3_K_S.bin --output ../vid-orca/models/llama-2-13b-chat.gguf.q3_K_S.bin --name "LLaMA-2 13b GGUF q3_K_S" --eps 1e-5 --context-length 4096`
+	>
+	> You've now converted your GGML model to a GGUF model! Just a few things to note about the commands above:
+	>  * You may need to replace `pip` and/or `python` with `pip3` and/or `python3`, depending on your Python configuration.
+	>  * If your LLaMA 1 models have a context length of more than 2048 or your LLaMA 2 models have it more than 4096, you will have to increase the `--context-length` argument of the conversion command. 
+	> <br/><br/>
+	>
+	> I am using **llama-2-13b-chat.ggmlv3.q3_K_S.bin** from <https://huggingface.co/TheBloke/Llama-2-13B-chat-GGML> converted to GGUF (it is available here: <https://huggingface.co/uralstech/LLaMA-2-13b-Chat-GGUF>).
+	> I am using the 13b model as it has good performance at much lower hardware requirements than the 70b model.
 
 * Move the downloaded `.bin` file to the **models** folder.
+* In the `main.py` file, under the `src` folder, change the following lines:
+	* Change the last part of the `MODEL_PATH` variable (line **18**) to your model file's name. Like `../models/Your-LLaMA-2_model.bin`.
+	* Add your model's name to the `APP_NAME` variable (line **21**).
+
+### Authentication
+Depending on your use, you may or may not need client authentication for the Cloud Run/Compute Engine service.
+If you are making an app which uses the service, for example, you may want authentication so that only your app's users can access it.
+
+This project is configured to use Firebase Admin SDK authentication, so, if you already have Firebase Auth set up in your app, you can integrate the service easily.
+
+If you **do not** want authentication or are using a different method of authenticating your users, here are the steps to remove the Admin SDK integration from Vid Orca:
+* In `main.py`, set the `USE_FIREBASE_ADMIN_AUTH` variable (line **16**) to `False`.
+* In `Dockerfile` remove line **37**
 
 ### Choose your path
 I have documented two ways of deploying LLaMA models to Google Cloud. Choose what is best for you!
@@ -48,6 +61,8 @@ I have documented two ways of deploying LLaMA models to Google Cloud. Choose wha
 	* **Very slow.** Cloud Run does not allow you to use GPUs.
 		* My 13b model took nearly **two minutes** to process a single request.
 
+If you want to deploy your model to Google Cloud Run, check out <>https://github.com/uralstech/vid-orca/wiki/Google-Cloud-Run.
+
 #### Using Google Compute Engine VMs
 
 * **Pros**
@@ -56,6 +71,8 @@ I have documented two ways of deploying LLaMA models to Google Cloud. Choose wha
 * **Cons**
 	* **Harder to set up.**
 	* **More expensive than Cloud Run and charges you for the whole time the VM is running.** In my configuration, it costs **$0.34 per *hour*** or **$228.93 per *month***.
+
+If you want to deploy your model to Google Compute Engine, check out <https://github.com/uralstech/vid-orca/wiki/Google-Compute-Engine>.
 
 ## Changelog
 * v1.2.10 **[Breaking changes]**

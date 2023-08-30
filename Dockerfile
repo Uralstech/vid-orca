@@ -25,7 +25,7 @@ RUN apt-get update && apt-get install -y gcc build-essential
 RUN pip install -r requirements.txt
 RUN pip install llama-cpp-python==0.1.81 --no-cache-dir
 
-# Uncomment the below line to install the nano text editor for debugging (only useful in GCE).
+# Uncomment the below line to install the nano text editor for debugging (only useful in GCE Virtual Machines).
 # RUN apt-get update && apt-get install -y nano
 
 WORKDIR /vid-orca/src
