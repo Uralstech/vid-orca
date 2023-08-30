@@ -101,7 +101,7 @@ If you want to test/run the image locally and have Admin SDK authentication enab
 		export URL=$(gcloud run services describe "Cloud Run service name" --region "Cloud Run service region" --format "value(status.url)")
 		```
 * To test the deployment on a Google Cloud Run service:
-	* Which **does not** require any authentication, run:
+	* Which **does not require *any* authentication**, run:
     	* Command Prompt (Windows)
 			```cmd
     		curl -X POST "%URL%/api/chat" ^
