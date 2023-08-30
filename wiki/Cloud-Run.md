@@ -139,11 +139,11 @@ If you want to test/run the image locally and have Admin SDK authentication enab
     	    -H "Authorization: Bearer $ACCESS_TOKEN" \
     	    -d "{\"messages\":[{\"role\":\"system\",\"content\":\"You are a helpful assistant AI.\"},{\"role\":\"user\",\"content\":\"Who made Linux?\"}]}"
 			```
-	* Which **uses Firebase Admin SDK** authentication:<br/>
+	* Which **uses Firebase Admin SDK** for authentication:<br/>
 		Your app or website will have to send a web request to the service. The URL to send the request to is the one you got from the previous step, the headers
 		are `accept: application/json`, `Content-Type: application/json` and `Authorization: Bearer ID_TOKEN_GOES_HERE`. Remember to replace `ID_TOKEN_GOES_HERE` in
 		the third header with the user's actual ID token. To retrieve the ID token, check out the [***Firebase documentation***](https://firebase.google.com/docs/auth/admin/verify-id-tokens#retrieve_id_tokens_on_clients). The data to send to the service should look something like this: `{"messages":[{"role":"system","content":"A system prompt for the AI"},{"role":"user","content":"A user's prompt for the AI."}]}`.
-	* Which uses both **Firebase Admin SDK and has `Require authentication` enabled** for authentication:
+	* Which **uses *both* Firebase Admin SDK and has `Require authentication` enabled** for authentication:
 		You will have to combine the method for testing the Admin SDK authentication and the one for testing the `Require authentication` option.
 
 ## Congrats!
