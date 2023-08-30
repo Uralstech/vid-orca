@@ -49,6 +49,12 @@ If you **do not** want authentication or are using a different method of authent
 * In `main.py`, set the `USE_FIREBASE_ADMIN_AUTH` variable (line **16**) to `False`.
 * In `Dockerfile` remove line **37**
 
+If you **want** end-user authentication for the service using Firebase Admin SDK,
+link a [***Firebase***](https://console.firebase.google.com/) project to your Google Cloud project, if you haven't already.<br/>
+Your app or website will also need [***Firebase Authentication***](https://firebase.google.com/docs/auth/where-to-start) to be able to access the service.
+
+If you are using Google Cloud Run (more about that later), there is also a way to restrict access to only you and other Google Cloud services.  
+
 ### Google Cloud project setup
 * For new Google Cloud projects:
     * Go to [***Google Cloud Console***](https://console.cloud.google.com/) and create a new project.

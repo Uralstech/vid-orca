@@ -2,34 +2,27 @@
 
 ## Setup
 
-### Updating the scripts.
+### Updating the scripts
 
-* In **src/main.py**, line **16**, update `MODEL_PATH` with your model's filename.
+* In `main.py`, line **34**, remove `n_gpu_layers=43,` - including the comma. `n_gpu_layers` defines how much of the model to offload to your GPU, but as we are using Cloud Run, which does not have GPU processing, we don't need this.
+* In `Dockerfile` remove lines **11**, **13**, **16**, **18**, **24** and **39**.
+* Also in `Dockerfile`, change line **6** to `FROM python:3.11-slim-bullseye`.
 
-### Google Cloud project
+### Google Cloud project setup
 
-* Enable the needed services:
+* Enable the Google Cloud Run API:
     ```bash
     gcloud services enable run.googleapis.com
     ```
 
-## Authentication for the Google Cloud Run service
+## Building, testing and uploading the Docker image
 
-* If you **do not want end-user authentication for the service *OR* only want other Google Cloud services and/or *you* to use it**:
-	* Remove lines **6-9** in **requirements.txt**.
-	* Change line **15** in **src/main.py** to `USE_FIREBASE_ADMIN_AUTH: bool = False`.
-* If you ***want* end-user authentication for the service**, like if you want this to be used on your website or app:
-	* Link a [***Firebase***](https://console.firebase.google.com/) project to your Google Cloud project.
-	* Your app or website needs [***Firebase Authentication***](https://firebase.google.com/docs/auth/where-to-start) to be able to access the Google Cloud Run service.<br/>
-	Note: A Firebase Admin SDK service account is required to communicate with Firebase. This service account is created automatically when you create a Firebase project or add Firebase to a Google Cloud project.
-
-## Building and testing the Docker image
+If you want to test/run the image locally and have Admin SDK authentication enabled, you will **have** to set `USE_FIREBASE_ADMIN_AUTH` to `False` to disable it. This is the easiest way to test the service. Once you're ready to upload it to Google Cloud Run, set it back to `True` and build the image again.
 
 * Replace `REGION`, `PROJECT`, `REPOSITORY` and `IMAGE_NAME` with your desired values an run:<br/>
-	Note: If you want to test/run this locally, you will **have** to set `USE_FIREBASE_ADMIN_AUTH` to `False`. Once you're ready to upload to Google Cloud Run, you can set it to `True` and build the Docker image again.
     * Command Prompt (Windows)
     	```cmd
-    	SET VERSION="1.2.7"
+    	SET VERSION="1.2.10"
     	SET REGION="Google Cloud Platform region"
     	SET PROJECT="Google Cloud project ID"
 		SET REPOSITORY="Google Cloud Artifact Registry repository name"
@@ -37,7 +30,7 @@
 		REM The below line will make the image name the same as the repository name. To change it, replace %REPOSITORY% with the name.
     	SET IMAGE_NAME=%REPOSITORY%
 
-    	SET NAME="%REGION%-docker.pkg.dev/%PROJECT%/%REPOSITORY%/%IMAGE_NAME%-v%VERSION%"
+		SET NAME="%REGION%-docker.pkg.dev/%PROJECT%/%REPOSITORY%/%IMAGE_NAME%:%VERSION%"
 
     	docker build -t %NAME% .
     	docker run -p 8080:8080 %NAME%
@@ -52,12 +45,12 @@
 		# The below line will make the image name the same as the repository name. To change it, replace $REPOSITORY 	with the name.
 		export IMAGE_NAME=$REPOSITORY
 
-		export NAME="$REGION-docker.pkg.dev/$PROJECT/$REPOSITORY/$IMAGE_NAME-v$VERSION"
+		export NAME="$REGION-docker.pkg.dev/$PROJECT/$REPOSITORY/$IMAGE_NAME:$VERSION"
 
 		docker build -t $NAME .
 		docker run -p 8080:8080 $NAME
 		```
-* If there are no errors and Docker is done building the image, open a new terminal window and run (again, this will only work if `USE_FIREBASE_ADMIN_AUTH` is `False`):
+* When Docker is done building the image, you can test it by opening a new terminal window and running:
     * Command Prompt (Windows)
 		```cmd
     	curl -X POST "http://localhost:8080/api/chat" ^
@@ -72,10 +65,7 @@
 		-H "Content-Type: application/json" \
 		-d "{\"messages\":[{\"role\":\"system\",\"content\":\"You are a helpful assistant AI.\"},{\"role\":\"user\",\"content\":\"Who made Linux?\"}]}"
 		```
-* If there are no errors and you get an output, you can go back to the terminal running the container and press `Ctrl+C` to stop the container.
-
-## Pushing the image to the Google Cloud Artifact Registry and deploying it to Google Cloud Run
-
+* Once you get the output, you can go back to the terminal running the container and press `Ctrl+C` to stop the container.
 * To push the Docker image to the Google Cloud Artifact Registry, run:
     * Command Prompt (Windows)
 		```cmd
@@ -85,12 +75,15 @@
 		```bash
 		docker push $NAME
 		```
+
+## Creating the Cloud Run service
+
 * Go to [***Google Cloud Run***](https://console.cloud.google.com/run).
 * Create a new service.
 * Select the uploaded container image.
 * Name the service.
 * Choose a region.
-* Choose `Require authentication` if you do not want the public to access the service. This will restrict it to only be accessed by you and your other Google Cloud services. This should not be enabled if you want Firebase Admin SDK authentication.
+* Choose `Require authentication` if you want to restrict the service to only be accessed by you and your other Google Cloud services.
 * Under `Container, Networking, Security` in the `Container` section, set the memory capacity and CPU count according to the LLaMA model.
 * Create the service.
 
@@ -150,6 +143,8 @@
 		Your app or website will have to send a web request to the service. The URL to send the request to is the one you got from the previous step, the headers
 		are `accept: application/json`, `Content-Type: application/json` and `Authorization: Bearer ID_TOKEN_GOES_HERE`. Remember to replace `ID_TOKEN_GOES_HERE` in
 		the third header with the user's actual ID token. To retrieve the ID token, check out the [***Firebase documentation***](https://firebase.google.com/docs/auth/admin/verify-id-tokens#retrieve_id_tokens_on_clients). The data to send to the service should look something like this: `{"messages":[{"role":"system","content":"A system prompt for the AI"},{"role":"user","content":"A user's prompt for the AI."}]}`.
+	* Which uses both **Firebase Admin SDK and has `Require authentication` enabled** for authentication:
+		You will have to combine the method for testing the Admin SDK authentication and the one for testing the `Require authentication` option.
 
 ## Congrats!
 
