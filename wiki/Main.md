@@ -1,8 +1,5 @@
 # Vid Orca
 
-## NOTE
-This is still incomplete! I am working on finishing the wiki.
-
 ## Deploying LLaMA models to Google Cloud
 
 ### What you will need

@@ -81,6 +81,8 @@ This step is only for confirming the CUDA version compatible with the cloud GPU.
 There is no easy way to test the image locally.
 If you have Admin SDK authentication enabled, you will **have** to set `USE_FIREBASE_ADMIN_AUTH` to `False` to disable it, build the image, upload the image and test it using cURL from your PC. Once you're ready to upload the "production" version to Google Cloud Run, set it back to `True` and build the image again.
 
+### Building and uploading the image
+
 * To build the image, replace `REGION`, `PROJECT`, `REPOSITORY` and `IMAGE_NAME` with your desired values and run:<br/>
     * Command Prompt (Windows)
     	```cmd
@@ -128,7 +130,10 @@ If you have Admin SDK authentication enabled, you will **have** to set `USE_FIRE
 		```bash
 		echo $NAME
 		```
-* Follow the steps to create a new VM instance defined in the [***Creating a Google Compute Engine VM instance to get the CUDA version***]() section, but also follow these steps:
+
+### Deploying the image
+
+* Follow the steps to create a new VM instance defined in the [***Creating a Google Compute Engine VM instance to get the CUDA version***](https://github.com/Uralstech/vid-orca/wiki/LLaMA-On-Google-Compute-Engine#creating-the-instance) section, but also follow these steps:
 	* Before creating the image, in the `Container` section, click on `DEPLOY CONTAINER` and:
 		* Paste the link to your image in the `Container image` box.
 		* Check `Run as privileged`, `Allocate a buffer for STDIN` and `Allocate a pseudo-TTY`.
@@ -158,6 +163,9 @@ If you have Admin SDK authentication enabled, you will **have** to set `USE_FIRE
 	* Clicking on `EDIT` in your VM instance on Google Compute Engine.
 	* Copying the text in the `Automation` box under the `Management` section.
 	* Pasting the text in the SSH window and pressing enter.
+
+### Testing the deployment
+
 * You can now test the deployment by opening a new terminal window on your PC and running:
     * Command Prompt (Windows)
 		```cmd
