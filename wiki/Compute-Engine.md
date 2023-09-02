@@ -153,7 +153,7 @@ If you have Admin SDK authentication enabled, you will **have** to set `USE_FIRE
 			  -p 8080:8080 
 			```
 		* And at the end of the text also paste in the link to your image.
-	* In `Advanced options` => `Networking` => `default` => `External IPv4 address`, click on `RESERVE STATIC EXTERNAL IP ADDRESS` to reserve an IP address. Copy the address you get.
+	* In `Advanced options` -> `Networking` -> `default` -> `External IPv4 address`, click on `RESERVE STATIC EXTERNAL IP ADDRESS` to reserve an IP address. Copy the address you get.
 * It may take some time for the image to appear in the VM instance. To check if it has, you can SSH into the instance and run run:
 	```bash
 	docker images
