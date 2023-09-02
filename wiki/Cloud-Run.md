@@ -19,7 +19,7 @@
 
 If you want to test/run the image locally and have Admin SDK authentication enabled, you will **have** to set `USE_FIREBASE_ADMIN_AUTH` to `False` to disable it. This is the easiest way to test the service. Once you're ready to upload it to Google Cloud Run, set it back to `True` and build the image again.
 
-* Replace `REGION`, `PROJECT`, `REPOSITORY` and `IMAGE_NAME` with your desired values an run:<br/>
+* Replace `REGION`, `PROJECT`, `REPOSITORY` and `IMAGE_NAME` with your desired values and run:<br/>
     * Command Prompt (Windows)
     	```cmd
     	SET VERSION="1.2.10"
