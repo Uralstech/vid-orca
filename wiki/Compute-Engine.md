@@ -24,7 +24,6 @@ This step is only for confirming the CUDA version compatible with the cloud GPU.
 * Change the OS to `Container Optimized OS`.
 * Change the size to `100`.
 * Click on `SELECT`.
-* Click on `Advanced options` => `Networking` => `default` => `External IPv4 address` => `RESERVE STATIC EXTERNAL IP ADDRESS`.
 * Create your VM instance!
 > NOTE: You may get errors that there's no availability in your current zone. If you do, you will have to follow these steps from the start with a different region/zone.
 
@@ -154,6 +153,7 @@ If you have Admin SDK authentication enabled, you will **have** to set `USE_FIRE
 			  -p 8080:8080 
 			```
 		* And at the end of the text also paste in the link to your image.
+	* In `Advanced options` => `Networking` => `default` => `External IPv4 address`, click on `RESERVE STATIC EXTERNAL IP ADDRESS` to reserve an IP address. Copy the address you get.
 * It may take some time for the image to appear in the VM instance. To check if it has, you can SSH into the instance and run run:
 	```bash
 	docker images
@@ -166,17 +166,17 @@ If you have Admin SDK authentication enabled, you will **have** to set `USE_FIRE
 
 ### Testing the deployment
 
-* You can now test the deployment by opening a new terminal window on your PC and running:
+* You can now test the deployment by opening a new terminal window on your PC and running (replace `VM_IP` with the IP address of your VM instance):
     * Command Prompt (Windows)
 		```cmd
-    	curl -X POST "http://localhost:8080/api/chat" ^
+    	curl -X POST "http://VM_IP:8080/api/chat" ^
     	-H  "accept: application/json" ^
     	-H  "Content-Type: application/json" ^
     	-d "{\"messages\":[{\"role\":\"system\",\"content\":\"You are a helpful assistant AI.\"},{\"role\":\"user\",\"content\":\"Who made Linux?\"}]}"
     	```
     * Bash
 		```bash
-		curl -X POST "http://localhost:8080/api/chat" \
+		curl -X POST "http://VM_IP:8080/api/chat" \
 		-H "accept: application/json" \
 		-H "Content-Type: application/json" \
 		-d "{\"messages\":[{\"role\":\"system\",\"content\":\"You are a helpful assistant AI.\"},{\"role\":\"user\",\"content\":\"Who made Linux?\"}]}"
